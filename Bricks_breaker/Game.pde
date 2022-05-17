@@ -9,6 +9,11 @@ boolean go = false;
 boolean start = false;
 
 void game() {
+  introscreen.play();
+  strokeWeight(1);
+  stroke(0);
+  d = dist(bxpos, bypos, pxpos, pypos);
+  d2 = distance(pxpos, pypos, pwxpos, pwypos);
   timer += 1;
   if ( timer > 200) {
     if ( live < 1) {
@@ -24,7 +29,7 @@ void game() {
   }
   background(0);
   frameRate(200);
-  
+
 
   ellipseMode(CENTER);
   ellipse( pxpos, pypos, 150, 150);
@@ -50,8 +55,12 @@ void game() {
     powerup = 0;
   }
 
+
   if ( d2 < 90) {
+    //go = false;
     ability = int(random(1, 20));
+    //powerup = 0 ;
+    pwypos = 600;
     //ability = 1;
   }
 
@@ -62,28 +71,30 @@ void game() {
 
   if ( ability == 2 || ability == 17 || ability == 14 || ability == 13 || ability == 20) {
     live += 1;
+    ability = 0;
   }
 
-  //if ( ability == 4) {
-  //  imageMode(CORNER);
-  //  image( lava2, 0, 750, 1200, 50);
-  //  lava = true;
-  //}
+  if ( ability == 4) {
+    imageMode(CORNER);
+    lava = true;
+  }
 
-  //if ( ability == 9 || ability == 11 || ability == 12|| ability == 15 || ability == 16 || ability == 18 || ability == 5 || ability == 8) {
-  //  score += 1;
-  //}
+  if ( ability == 9 || ability == 11 || ability == 12|| ability == 15 || ability == 16 || ability == 18 || ability == 5 || ability == 8) {
+    score += 1;
+    ability = 0;
+  }
 
   if ( ability == 19) {
     pspeed = 8;
   }
 
-  //if (lava == true) {
-  //  if ( bypos > 735) {
-  //    mode = gameover;
-  //    win = false;
-  //  }
-  //}
+  if (lava == true) {
+    image( lava2, 0, 750, 1200, 50);
+    if ( bypos > 735) {
+      mode = gameover;
+      win = false;
+    }
+  }
 
 
   textAlign(CENTER, CENTER);
@@ -93,9 +104,8 @@ void game() {
   text("lives " + live, pxpos, 650);
 
 
-  d = dist(bxpos, bypos, pxpos, pypos);
-  d2 = distance(pxpos, pypos, pwxpos, pwypos);
-  
+
+
 
   if (d < 85) {
     vx = (bxpos - pxpos)/10.0;

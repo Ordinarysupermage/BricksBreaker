@@ -1,4 +1,5 @@
 void pause() {
+  introscreen.pause();
   textAlign(CENTER, CENTER);
   textSize(100);
   fill(255);
